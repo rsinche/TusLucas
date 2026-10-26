@@ -13,6 +13,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.Switch
@@ -21,8 +22,11 @@ import android.widget.TextView
 /** Cabecera con estado, barra inferior Home / Caja / Reportes y la pantalla elegida en medio. */
 class MainActivity : Activity() {
 
-    private enum class Pestana(val icono: String, val etiqueta: String) {
-        HOME("🏠", "Home"), CAJA("💰", "Caja"), REPORTES("📊", "Reportes")
+    // Íconos de Flaticon (ver CREDITOS.md); se tiñen con el color del tema
+    private enum class Pestana(val icono: Int, val etiqueta: String) {
+        HOME(R.drawable.ic_nav_home, "Home"),
+        CAJA(R.drawable.ic_nav_caja, "Caja"),
+        REPORTES(R.drawable.ic_nav_reportes, "Reportes"),
     }
 
     private lateinit var p: Paleta
@@ -149,12 +153,10 @@ class MainActivity : Activity() {
                 if (activa) background = ui.fondoRedondeado(p.fondo, radio = 16)
                 contentDescription = opcion.etiqueta
                 setOnClickListener { if (!activa) mostrar(opcion) }
-                addView(TextView(this@MainActivity).apply {
-                    text = opcion.icono
-                    textSize = 20f
-                    gravity = Gravity.CENTER
-                    alpha = if (activa) 1f else 0.6f
-                })
+                addView(ImageView(this@MainActivity).apply {
+                    setImageResource(opcion.icono)
+                    setColorFilter(if (activa) p.texto else p.textoSuave)
+                }, LinearLayout.LayoutParams(ui.dp(26), ui.dp(26)))
                 addView(TextView(this@MainActivity).apply {
                     text = opcion.etiqueta
                     textSize = 13f

@@ -25,7 +25,7 @@ class PantallaHome(private val ui: Ui, private val hablador: Hablador) : Pantall
 
     private val avisos = LinearLayout(ui.act).apply { orientation = LinearLayout.VERTICAL }
     private val hoy = ui.texto(tamano = 15f)
-    private val repetir = ui.boton("🔊  Repetir último") {
+    private val repetir = ui.botonRedondeado("REPETIR ÚLTIMO") {
         Historial.ultimo(ui.act)?.let { hablador.decir(it.frase) }
     }
     private val lista = LinearLayout(ui.act).apply { orientation = LinearLayout.VERTICAL }

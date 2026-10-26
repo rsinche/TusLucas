@@ -1,13 +1,16 @@
 package pe.yapevoz
 
 import android.app.Activity
+import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import java.text.SimpleDateFormat
@@ -55,6 +58,34 @@ class Ui(val act: Activity, val p: Paleta) {
         setOnClickListener { alPulsar() }
     }
 
+    /** Botón principal: esquinas redondeadas, ícono opcional (teñido) y se atenúa al deshabilitarlo. */
+    fun botonRedondeado(texto: String, icono: Int? = null, alPulsar: () -> Unit): View =
+        object : LinearLayout(act) {
+            override fun setEnabled(enabled: Boolean) {
+                super.setEnabled(enabled)
+                alpha = if (enabled) 1f else 0.4f
+            }
+        }.apply {
+            gravity = Gravity.CENTER
+            minimumHeight = dp(52)
+            setPadding(dp(16), dp(14), dp(16), dp(14))
+            background = RippleDrawable(ColorStateList.valueOf(p.textoSuave), fondoRedondeado(p.texto, radio = 26), null)
+            icono?.let {
+                addView(ImageView(act).apply {
+                    setImageResource(it)
+                    setColorFilter(p.fondo)
+                }, LinearLayout.LayoutParams(dp(20), dp(20)).apply { marginEnd = dp(10) })
+            }
+            addView(TextView(act).apply {
+                text = texto
+                textSize = 15f
+                letterSpacing = 0.05f
+                setTypeface(typeface, Typeface.BOLD)
+                setTextColor(p.fondo)
+            })
+            setOnClickListener { alPulsar() }
+        }
+
     fun botonPlano(texto: String, alPulsar: () -> Unit) = Button(act, null, android.R.attr.borderlessButtonStyle).apply {
         text = texto
         isAllCaps = false
@@ -64,7 +95,12 @@ class Ui(val act: Activity, val p: Paleta) {
 
     /** Dos o más vistas repartidas en partes iguales a lo ancho. */
     fun enFila(vararg vistas: View) = LinearLayout(act).apply {
-        vistas.forEach { addView(it, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f)) }
+        vistas.forEachIndexed { i, vista ->
+            addView(vista, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply {
+                marginStart = if (i == 0) 0 else dp(6)
+                marginEnd = if (i == vistas.lastIndex) 0 else dp(6)
+            })
+        }
     }
 
     /** Tarjeta con un monto grande: etiqueta arriba, monto y un resumen debajo. */

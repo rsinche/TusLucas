@@ -33,8 +33,8 @@ class PantallaReportes(private val ui: Ui) : Pantalla {
     private val tituloFechas = ui.titulo()
     private val fechas = LinearLayout(ui.act).apply { orientation = LinearLayout.VERTICAL }
     private val tarjeta = ui.tarjetaTotal()
-    private val compartir = ui.boton("📤  Compartir") { compartir() }
-    private val guardar = ui.boton("💾  Guardar") { pedirDondeGuardar() }
+    private val compartir = ui.botonRedondeado("COMPARTIR", R.drawable.ic_compartir) { compartir() }
+    private val guardar = ui.botonRedondeado("GUARDAR", R.drawable.ic_guardar) { pedirDondeGuardar() }
 
     override val vista: View = ui.columna().apply {
         addView(ui.titulo("Tipo de reporte"), ui.margen(top = 12))
