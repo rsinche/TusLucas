@@ -1,0 +1,28 @@
+# Gradle / Kotlin
+.gradle/
+.kotlin/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Configuración local (ruta del SDK de cada PC)
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+.navigation/
+
+# APKs, bundles y firmas (nunca subir las llaves de firma)
+*.apk
+*.aab
+*.ap_
+*.keystore
+*.jks
+keystore.properties
+
+# Logs y archivos del sistema
+*.log
+.DS_Store
+Thumbs.db
