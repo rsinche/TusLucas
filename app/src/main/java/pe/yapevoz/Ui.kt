@@ -58,7 +58,10 @@ class Ui(val act: Activity, val p: Paleta) {
         setOnClickListener { alPulsar() }
     }
 
-    /** Botón principal: esquinas redondeadas, ícono opcional (teñido) y se atenúa al deshabilitarlo. */
+    /**
+     * Botón con el mismo estilo que los chips (fondo de tarjeta, esquinas redondeadas),
+     * ícono opcional teñido como el texto; se atenúa al deshabilitarlo.
+     */
     fun botonRedondeado(texto: String, icono: Int? = null, alPulsar: () -> Unit): View =
         object : LinearLayout(act) {
             override fun setEnabled(enabled: Boolean) {
@@ -67,21 +70,18 @@ class Ui(val act: Activity, val p: Paleta) {
             }
         }.apply {
             gravity = Gravity.CENTER
-            minimumHeight = dp(52)
-            setPadding(dp(16), dp(14), dp(16), dp(14))
-            background = RippleDrawable(ColorStateList.valueOf(p.textoSuave), fondoRedondeado(p.texto, radio = 26), null)
+            setPadding(dp(12), dp(10), dp(12), dp(10))
+            background = RippleDrawable(ColorStateList.valueOf(p.textoSuave), fondoRedondeado(p.tarjeta), null)
             icono?.let {
                 addView(ImageView(act).apply {
                     setImageResource(it)
-                    setColorFilter(p.fondo)
-                }, LinearLayout.LayoutParams(dp(20), dp(20)).apply { marginEnd = dp(10) })
+                    setColorFilter(p.texto)
+                }, LinearLayout.LayoutParams(dp(18), dp(18)).apply { marginEnd = dp(8) })
             }
             addView(TextView(act).apply {
                 text = texto
                 textSize = 15f
-                letterSpacing = 0.05f
-                setTypeface(typeface, Typeface.BOLD)
-                setTextColor(p.fondo)
+                setTextColor(p.texto)
             })
             setOnClickListener { alPulsar() }
         }

@@ -117,7 +117,7 @@ class PantallaReportes(private val ui: Ui) : Pantalla {
     // ---------- Selectores de fecha ----------
 
     private fun botonFecha(fecha: Long, alElegir: (Long) -> Unit) =
-        ui.boton("📅  " + ui.mayuscula(ui.diaLargo.format(java.util.Date(fecha)))) {
+        ui.botonRedondeado(ui.mayuscula(ui.diaLargo.format(java.util.Date(fecha)))) {
             val cal = Calendar.getInstance().apply { timeInMillis = fecha }
             DatePickerDialog(ui.act, { _, anio, mesElegido, diaElegido ->
                 alElegir(Calendar.getInstance().apply { clear(); set(anio, mesElegido, diaElegido) }.timeInMillis)
@@ -130,7 +130,7 @@ class PantallaReportes(private val ui: Ui) : Pantalla {
     private fun etiquetado(etiqueta: String, vista: View) = LinearLayout(ui.act).apply {
         orientation = LinearLayout.VERTICAL
         addView(ui.texto(etiqueta))
-        addView(vista)
+        addView(vista, ui.margen(top = 4))
     }
 
     private fun selectorMes() = LinearLayout(ui.act).apply {
