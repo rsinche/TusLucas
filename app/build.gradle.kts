@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
 }
@@ -14,9 +16,26 @@ android {
         versionName = "1.0"
     }
 
+    // Llave de firma: keystore.properties y el .jks no se suben a git
+    val firma = rootProject.file("keystore.properties")
+    if (firma.exists()) {
+        val datos = Properties().apply { firma.inputStream().use { load(it) } }
+        signingConfigs.create("release") {
+            storeFile = file(datos.getProperty("storeFile"))
+            storePassword = datos.getProperty("storePassword")
+            keyAlias = datos.getProperty("keyAlias")
+            keyPassword = datos.getProperty("keyPassword")
+        }
+    }
+
     buildTypes {
+        // Misma llave en debug y release: las dos versiones se instalan una encima de otra sin perder datos
+        debug {
+            signingConfigs.findByName("release")?.let { signingConfig = it }
+        }
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.findByName("release")
         }
     }
     compileOptions {

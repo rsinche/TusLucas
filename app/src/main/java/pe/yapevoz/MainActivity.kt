@@ -19,7 +19,7 @@ import android.widget.ScrollView
 import android.widget.Switch
 import android.widget.TextView
 
-/** Cabecera con estado, barra inferior Home / Caja / Reportes y la pantalla elegida en medio. */
+/** Cabecera con estado, barra inferior Home / Caja / Reportes / Configuración y la pantalla elegida en medio. */
 class MainActivity : Activity() {
 
     // Íconos de Flaticon (ver CREDITOS.md); se tiñen con el color del tema
@@ -27,6 +27,7 @@ class MainActivity : Activity() {
         HOME(R.drawable.ic_nav_home, "Home"),
         CAJA(R.drawable.ic_nav_caja, "Caja"),
         REPORTES(R.drawable.ic_nav_reportes, "Reportes"),
+        CONFIG(R.drawable.ic_nav_config, "Configuración"),
     }
 
     private lateinit var p: Paleta
@@ -69,6 +70,7 @@ class MainActivity : Activity() {
             Pestana.HOME to PantallaHome(ui, hablador),
             Pestana.CAJA to PantallaCaja(ui, hablador),
             Pestana.REPORTES to reportes,
+            Pestana.CONFIG to PantallaConfig(ui, hablador),
         )
         savedInstanceState?.let { estado ->
             pestana = Pestana.valueOf(estado.getString("pestana", pestana.name))
@@ -159,14 +161,15 @@ class MainActivity : Activity() {
                 }, LinearLayout.LayoutParams(ui.dp(26), ui.dp(26)))
                 addView(TextView(this@MainActivity).apply {
                     text = opcion.etiqueta
-                    textSize = 13f
+                    textSize = 12f
+                    maxLines = 1
                     gravity = Gravity.CENTER
                     setTextColor(if (activa) p.texto else p.textoSuave)
                     if (activa) setTypeface(typeface, Typeface.BOLD)
                 })
             }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply {
-                marginStart = ui.dp(4)
-                marginEnd = ui.dp(4)
+                marginStart = ui.dp(2)
+                marginEnd = ui.dp(2)
             })
         }
     }

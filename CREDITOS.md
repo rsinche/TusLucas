@@ -8,4 +8,5 @@
 | Caja | [Administración del dinero](https://www.flaticon.es/icono-gratis/administracion-del-dinero_4339462) | `app/src/main/res/drawable-nodpi/ic_nav_caja.png` |
 | Botón Compartir | [Compartir](https://www.flaticon.es/icono-gratis/compartir_929610) | `app/src/main/res/drawable-nodpi/ic_compartir.png` |
 | Botón Guardar | [Disquete](https://www.flaticon.es/icono-gratis/disquete_747439) | `app/src/main/res/drawable-nodpi/ic_guardar.png` |
+| Configuración | [Configuración móvil](https://www.flaticon.es/icono-gratis/configuracion-movil_11192972) | `app/src/main/res/drawable-nodpi/ic_nav_config.png` |
 | Reportes | [Informe de negocios](https://www.flaticon.es/icono-gratis/informe-de-negocios_18582791) | `app/src/main/res/drawable-nodpi/ic_nav_reportes.png` |

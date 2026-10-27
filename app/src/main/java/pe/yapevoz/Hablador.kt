@@ -2,12 +2,14 @@ package pe.yapevoz
 
 import android.content.Context
 import android.media.AudioAttributes
+import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import java.util.Locale
 
 /** Envoltura de TextToSpeech que encola frases hasta que el motor esté listo. */
 class Hablador(context: Context) : TextToSpeech.OnInitListener {
 
+    private val contexto = context.applicationContext
     private val tts = TextToSpeech(context.applicationContext, this)
     private var listo = false
     private val pendientes = ArrayDeque<String>()
@@ -34,7 +36,8 @@ class Hablador(context: Context) : TextToSpeech.OnInitListener {
             pendientes.addLast(frase)
             return
         }
-        tts.speak(frase, TextToSpeech.QUEUE_ADD, null, frase.hashCode().toString())
+        val volumen = Bundle().apply { putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, Prefs.volumen(contexto) / 100f) }
+        tts.speak(frase, TextToSpeech.QUEUE_ADD, volumen, frase.hashCode().toString())
     }
 
     fun cerrar() {

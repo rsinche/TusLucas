@@ -53,7 +53,7 @@ class YapeListenerService : NotificationListenerService() {
 
         val pago = PagoParser.parse(texto) ?: return
         val frase = PagoParser.frase(pago, fuente)
-        hablador.decir(frase)
+        if (Prefs.leer(this, fuente)) hablador.decir(frase)
         Historial.agregar(
             this,
             PagoRegistrado(
