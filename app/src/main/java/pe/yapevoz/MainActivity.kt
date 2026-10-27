@@ -157,14 +157,14 @@ class MainActivity : Activity() {
                 setOnClickListener { if (!activa) mostrar(opcion) }
                 addView(ImageView(this@MainActivity).apply {
                     setImageResource(opcion.icono)
-                    setColorFilter(if (activa) p.texto else p.textoSuave)
+                    setColorFilter(if (activa) p.acento else p.textoSuave)
                 }, LinearLayout.LayoutParams(ui.dp(26), ui.dp(26)))
                 addView(TextView(this@MainActivity).apply {
                     text = opcion.etiqueta
                     textSize = 12f
                     maxLines = 1
                     gravity = Gravity.CENTER
-                    setTextColor(if (activa) p.texto else p.textoSuave)
+                    setTextColor(if (activa) p.acento else p.textoSuave)
                     if (activa) setTypeface(typeface, Typeface.BOLD)
                 })
             }, LinearLayout.LayoutParams(0, WRAP_CONTENT, 1f).apply {

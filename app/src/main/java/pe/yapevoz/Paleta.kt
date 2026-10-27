@@ -19,6 +19,9 @@ data class Paleta(
     private val yape: Int,
     private val plin: Int,
 ) {
+    /** Morado de la marca, para resaltar lo seleccionado. */
+    val acento get() = yape
+
     fun color(fuente: Fuente) = when (fuente) {
         Fuente.YAPE -> yape
         Fuente.PLIN -> plin
